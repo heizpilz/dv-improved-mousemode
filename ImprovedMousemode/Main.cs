@@ -2,11 +2,15 @@
 using System.Reflection;
 using HarmonyLib;
 using UnityModManagerNet;
+using DV.UI;
 
 namespace ImprovedMousemode;
 
 public static class Main
 {
+
+	public static UnityModManager.ModEntry? mod;
+
 	// Unity Mod Manage Wiki: https://wiki.nexusmods.com/index.php/Category:Unity_Mod_Manager
 	private static bool Load(UnityModManager.ModEntry modEntry)
 	{
@@ -27,5 +31,19 @@ public static class Main
 		}
 
 		return true;
+	}
+	
+	[HarmonyPatch(typeof(CanvasProviderDV), nameof(CanvasProviderDV.ShouldTryToggle))]
+	class AddKeyDownToMouseModeTrigger
+	{
+		static bool Postfix(bool result, CanvasController.ElementType type)
+		{
+			if (type == CanvasController.ElementType.MouseMode)
+			{
+				return KeyBindings.mouseLookKeys.IsUp() || KeyBindings.mouseLookKeys.IsDown();
+			} else {
+				return result;
+			}
+		}
 	}
 }

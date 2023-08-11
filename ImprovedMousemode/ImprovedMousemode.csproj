@@ -10,6 +10,8 @@
 	<!-- Derail Valley -->
 	<ItemGroup>
 		<Reference Include="Assembly-CSharp"/>
+		<Reference Include="DV.UI"/>
+		<Reference Include="DV.Interaction"/>
 	</ItemGroup>
 
 	<!-- Unity -->
