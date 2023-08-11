@@ -3,6 +3,8 @@ using System.Reflection;
 using HarmonyLib;
 using UnityModManagerNet;
 using DV.UI;
+using DV.Utils;
+
 
 namespace ImprovedMousemode;
 
@@ -32,16 +34,19 @@ public static class Main
 
 		return true;
 	}
-	
+
 	[HarmonyPatch(typeof(CanvasProviderDV), nameof(CanvasProviderDV.ShouldTryToggle))]
 	class AddKeyDownToMouseModeTrigger
 	{
 		static bool Postfix(bool result, CanvasController.ElementType type)
 		{
-			if (type == CanvasController.ElementType.MouseMode)
+			bool inMousemode = SingletonBehaviour<ACanvasController<CanvasController.ElementType>>.Instance.IsOn(CanvasController.ElementType.MouseMode);
+			if (type == CanvasController.ElementType.MouseMode && !inMousemode)
 			{
 				return KeyBindings.mouseLookKeys.IsUp() || KeyBindings.mouseLookKeys.IsDown();
-			} else {
+			}
+			else
+			{
 				return result;
 			}
 		}
