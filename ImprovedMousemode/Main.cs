@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Reflection.Emit;
 using HarmonyLib;
 using UnityModManagerNet;
 using DV.UI;
@@ -8,6 +10,7 @@ using DV.Utils;
 
 namespace ImprovedMousemode;
 
+[EnableReloading]
 public static class Main
 {
 
@@ -45,9 +48,26 @@ public static class Main
 			{
 				return KeyBindings.mouseLookKeys.IsUp() || KeyBindings.mouseLookKeys.IsDown();
 			}
-			else
+			return result;
+		}
+	}
+
+	[HarmonyPatch(typeof(CursorManager), "OnValueChanged")]
+	class CenterMouseOnEnteringMousemode
+	{
+		static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		{
+			foreach (CodeInstruction instruction in instructions)
 			{
-				return result;
+				if (instruction.opcode == OpCodes.Call && (MethodInfo)instruction.operand == typeof(DV.UI.Win32MouseHandler).GetMethod("SetCursorPos"))
+				{
+					// replace call to restore mouseposition with instruction that keeps the stack intact
+					yield return new CodeInstruction(OpCodes.Pop);
+				}
+				else
+				{
+					yield return instruction;
+				}
 			}
 		}
 	}
