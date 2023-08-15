@@ -9,14 +9,14 @@
 
 <!-- PROJECT TITLE -->
 <div align="center">
-	<h1>Unity Mod Manager Mod Template</h1>
+	<h1>Improved Mousemode</h1>
 	<p>
-		A template for creating <a href="http://www.derailvalley.com/">Derail Valley</a> mods that load via <a href="https://www.nexusmods.com/site/mods/21">Unity Mod Manager</a>.
+		A <a href="http://www.derailvalley.com/">Derail Valley</a> mod that loads via <a href="https://www.nexusmods.com/site/mods/21">Unity Mod Manager</a>.
 		<br />
 		<br />
-		<a href="https://github.com/derail-valley-modding/template-umm/issues">Report Bug</a>
+		<a href="https://github.com/heizpilz/dv-improved-mousemode/issues">Report Bug</a>
 		·
-		<a href="https://github.com/derail-valley-modding/template-umm/issues">Request Feature</a>
+		<a href="https://github.com/heizpilz/dv-improved-mousemode/issues">Request Feature</a>
 	</p>
 </div>
 
@@ -41,8 +41,17 @@
 
 ## About The Project
 
-This is a template for Derail Valley mods that load via the Unity Mod Manager mod loader.  
-TODO: Instructions for how mod creators use this template.
+This mod adds two config options to improve the mousemode experience.
+
+### Holding for Mousemode
+
+Restores the pre-Simulator behavior of having to hold the key (default `ALT`) to move the camera independently from turning.
+If you just use mousemode for the quick look at held items, this mode is for you.
+Additionally you can still toggle on the driving-UI permanently via its keyboard shortcut (default `F4`).
+
+### Centering Mouse when entering Mousemode
+
+Especially when using the hold for mousemode function, having the cursor restore its last position isn't too helpful. With this enabled, the cursor will always start from the center after entering mousemode.
 
 
 
@@ -55,7 +64,7 @@ Building the project requires some initial setup, after which running `dotnet bu
 
 ### References Setup
 
-After cloning the repository, some setup is required in order to successfully build the mod DLLs. You will need to create a new [Directory.Build.targets][references-url] file to specify your local reference paths. This file will be located in the main directory, next to dv-improved-mousemode.sln.
+After cloning the repository, some setup is required in order to successfully build the mod DLLs. You will need to create a new [Directory.Build.targets][references-url] file to specify your local reference paths. This file will be located in the main directory, next to ImprovedMousemode.sln.
 
 Below is an example of the necessary structure. When creating your targets file, you will need to replace the reference paths with the corresponding folders on your system. Make sure to include semicolons **between** each of the paths and no semicolon after the last path. Also note that any shortcuts you might use in file explorer—such as %ProgramFiles%—won't be expanded in these paths. You have to use full, absolute paths.
 ```xml
@@ -115,15 +124,15 @@ See [LICENSE][license-url] for more information.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/derail-valley-modding/template-umm.svg?style=for-the-badge
-[contributors-url]: https://github.com/derail-valley-modding/template-umm/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/derail-valley-modding/template-umm.svg?style=for-the-badge
-[forks-url]: https://github.com/derail-valley-modding/template-umm/network/members
-[stars-shield]: https://img.shields.io/github/stars/derail-valley-modding/template-umm.svg?style=for-the-badge
-[stars-url]: https://github.com/derail-valley-modding/template-umm/stargazers
-[issues-shield]: https://img.shields.io/github/issues/derail-valley-modding/template-umm.svg?style=for-the-badge
-[issues-url]: https://github.com/derail-valley-modding/template-umm/issues
-[license-shield]: https://img.shields.io/github/license/derail-valley-modding/template-umm.svg?style=for-the-badge
-[license-url]: https://github.com/derail-valley-modding/template-umm/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/heizpilz/dv-improved-mousemode.svg?style=for-the-badge
+[contributors-url]: https://github.com/heizpilz/dv-improved-mousemode/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/heizpilz/dv-improved-mousemode.svg?style=for-the-badge
+[forks-url]: https://github.com/heizpilz/dv-improved-mousemode/network/members
+[stars-shield]: https://img.shields.io/github/stars/heizpilz/dv-improved-mousemode.svg?style=for-the-badge
+[stars-url]: https://github.com/heizpilz/dv-improved-mousemode/stargazers
+[issues-shield]: https://img.shields.io/github/issues/heizpilz/dv-improved-mousemode.svg?style=for-the-badge
+[issues-url]: https://github.com/heizpilz/dv-improved-mousemode/issues
+[license-shield]: https://img.shields.io/github/license/heizpilz/dv-improved-mousemode.svg?style=for-the-badge
+[license-url]: https://github.com/heizpilz/dv-improved-mousemode/blob/master/LICENSE
 [references-url]: https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2022
 [autocrlf-url]: https://www.git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_formatting_and_whitespace
