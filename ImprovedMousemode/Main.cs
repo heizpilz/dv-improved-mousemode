@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Reflection.Emit;
 using HarmonyLib;
 using UnityModManagerNet;
 using DV.UI;
 using DV.Utils;
+using UnityEngine;
 
 
 namespace ImprovedMousemode;
@@ -13,8 +12,6 @@ namespace ImprovedMousemode;
 [EnableReloading]
 public static class Main
 {
-
-	public static UnityModManager.ModEntry? mod;
 	public static Harmony? harmony = null;
 	public static Settings Settings = new();
 
@@ -25,7 +22,7 @@ public static class Main
 		{
 			harmony = new Harmony(modEntry.Info.Id);
 			Settings = Settings.Load<Settings>(modEntry);
-			PatchWithSettings();
+			harmony?.PatchAll(Assembly.GetExecutingAssembly());
 
 			// Other plugin startup logic
 			modEntry.OnToggle = OnToggle;
@@ -46,7 +43,7 @@ public static class Main
 	{
 		if (enabled)
 		{
-			PatchWithSettings();
+			harmony?.PatchAll(Assembly.GetExecutingAssembly());
 		}
 		else
 		{
@@ -65,24 +62,9 @@ public static class Main
 		Settings.Save(modEntry);
 	}
 
-	public static void PatchWithSettings()
-	{
-		harmony?.Patch(AddKeyDownToMouseModeTrigger.original, postfix: new HarmonyMethod(AddKeyDownToMouseModeTrigger.postfix));
-		if (Settings.mouseCenteringEnabled)
-		{
-			harmony?.Patch(CenterMouseOnEnteringMousemode.original, transpiler: new HarmonyMethod(CenterMouseOnEnteringMousemode.transpiler));
-		}
-		else
-		{
-			harmony?.Unpatch(CenterMouseOnEnteringMousemode.original, CenterMouseOnEnteringMousemode.transpiler);
-		}
-	}
-
 	[HarmonyPatch(typeof(CanvasProviderDV), nameof(CanvasProviderDV.ShouldTryToggle))]
 	class AddKeyDownToMouseModeTrigger
 	{
-		internal static readonly MethodInfo original = typeof(CanvasProviderDV).GetMethod(nameof(CanvasProviderDV.ShouldTryToggle));
-		internal static readonly MethodInfo postfix = typeof(AddKeyDownToMouseModeTrigger).GetMethod(nameof(Postfix));
 		public static bool Postfix(bool result, CanvasController.ElementType type)
 		{
 			bool inMousemode = SingletonBehaviour<ACanvasController<CanvasController.ElementType>>.Instance.IsOn(CanvasController.ElementType.MouseMode);
@@ -94,24 +76,16 @@ public static class Main
 		}
 	}
 
-	[HarmonyPatch(typeof(CursorManager), "OnValueChanged")]
+	[HarmonyPatch(typeof(ACanvasController<CanvasController.ElementType>))]
 	class CenterMouseOnEnteringMousemode
 	{
-		internal static readonly MethodInfo original = typeof(CursorManager).GetMethod("OnValueChanged", BindingFlags.Instance | BindingFlags.NonPublic);
-		internal static readonly MethodInfo transpiler = typeof(CenterMouseOnEnteringMousemode).GetMethod(nameof(Transpiler));
-		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		[HarmonyPatch(nameof(ACanvasController<CanvasController.ElementType>.TrySetState), new Type[] { typeof(CanvasController.ElementType), typeof(bool) })]
+		public static void Prefix(CanvasController.ElementType type, bool on)
 		{
-			foreach (CodeInstruction instruction in instructions)
+			if (Settings.mouseCenteringEnabled && type == CanvasController.ElementType.MouseMode && on)
 			{
-				if (instruction.opcode == OpCodes.Call && (MethodInfo)instruction.operand == typeof(DV.UI.Win32MouseHandler).GetMethod("SetCursorPos"))
-				{
-					// replace call to restore mouseposition with instruction that keeps the stack intact
-					yield return new CodeInstruction(OpCodes.Pop);
-				}
-				else
-				{
-					yield return instruction;
-				}
+				Win32MouseHandler.GetCursorPos(out Vector2Int centerMousePosition);
+				AccessTools.FieldRefAccess<CursorManager, Vector2Int>(CursorManager.Instance, "mousePosition") = centerMousePosition;
 			}
 		}
 	}

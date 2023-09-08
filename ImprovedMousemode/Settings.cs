@@ -16,6 +16,6 @@ public class Settings : UnityModManager.ModSettings, IDrawable
 
     public void OnChange()
     {
-        Main.PatchWithSettings();
+        
     }
 }
