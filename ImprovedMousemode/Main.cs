@@ -9,7 +9,9 @@ using UnityEngine;
 
 namespace ImprovedMousemode;
 
+#if DEBUG
 [EnableReloading]
+#endif
 public static class Main
 {
 	public static Harmony? harmony = null;
