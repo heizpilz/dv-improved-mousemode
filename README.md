@@ -41,7 +41,7 @@
 
 ## About The Project
 
-This mod adds two config options to improve the mousemode experience.
+This mod adds two config options to improve the mousemode experience. Those can be toggled at all times in the mod manager menu.
 
 ### Holding for Mousemode
 
@@ -54,6 +54,7 @@ Additionally you can still toggle on the driving-UI permanently via its keyboard
 Especially when using the hold for mousemode function, having the cursor restore its last position isn't too helpful. With this enabled, the cursor will always start from the center after entering mousemode.
 
 
+Get the mod from <a href="https://www.nexusmods.com/derailvalley/mods/768">Nexus</a>
 
 
 <!-- BUILDING -->
@@ -134,6 +135,6 @@ See [LICENSE][license-url] for more information.
 [issues-shield]: https://img.shields.io/github/issues/heizpilz/dv-improved-mousemode.svg?style=for-the-badge
 [issues-url]: https://github.com/heizpilz/dv-improved-mousemode/issues
 [license-shield]: https://img.shields.io/github/license/heizpilz/dv-improved-mousemode.svg?style=for-the-badge
-[license-url]: https://github.com/heizpilz/dv-improved-mousemode/blob/master/LICENSE
+[license-url]: https://github.com/heizpilz/dv-improved-mousemode/blob/main/LICENSE
 [references-url]: https://learn.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2022
 [autocrlf-url]: https://www.git-scm.com/book/en/v2/Customizing-Git-Git-Configuration#_formatting_and_whitespace
