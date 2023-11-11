@@ -2,6 +2,7 @@
 using System.Reflection;
 using HarmonyLib;
 using UnityModManagerNet;
+using DV.Common;
 using DV.UI;
 using DV.Utils;
 using UnityEngine;
@@ -70,9 +71,9 @@ public static class Main
 		public static bool Postfix(bool result, CanvasController.ElementType type)
 		{
 			bool inMousemode = SingletonBehaviour<ACanvasController<CanvasController.ElementType>>.Instance.IsOn(CanvasController.ElementType.MouseMode);
-			if (Settings.holdForMousemode && type == CanvasController.ElementType.MouseMode && !inMousemode)
+			if (Settings.holdForMousemode && type == CanvasController.ElementType.MouseMode && !inMousemode && GameFeatureFlags.IsAllowed(GameFeatureFlags.Flag.MouseMode) && !VRManager.IsVREnabled())
 			{
-				return KeyBindings.mouseLookKeys.IsUp() || KeyBindings.mouseLookKeys.IsDown();
+				return KeyBindings.mouseLookKeys.IsUp(false) || KeyBindings.mouseLookKeys.IsDown(false);
 			}
 			return result;
 		}
