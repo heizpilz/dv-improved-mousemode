@@ -41,13 +41,15 @@
 
 ## About The Project
 
-This mod adds two config options to improve the mousemode experience. Those can be toggled at all times in the mod manager menu.
+This mod adds a config option to improve the mousemode experience. Those can be toggled at all times in the mod manager menu.
 
-### Holding for Mousemode
+~~### Holding for Mousemode~~
 
-Restores the pre-Simulator behavior of having to hold the key (default `ALT`) to move the camera independently from turning.
-If you just use mousemode for the quick look at held items, this mode is for you.
-Additionally you can still toggle on the driving-UI permanently via its keyboard shortcut (default `F4`).
+~~Restores the pre-Simulator behavior of having to hold the key (default `ALT`) to move the camera independently from turning.~~
+~~If you just use mousemode for the quick look at held items, this mode is for you.~~
+~~Additionally you can still toggle on the driving-UI permanently via its keyboard shortcut (default `F4`).~~
+
+_This functionality is in vanilla from Build 98 onwards, this part of the mod deactives itself on those builds_
 
 ### Centering Mouse when entering Mousemode
 

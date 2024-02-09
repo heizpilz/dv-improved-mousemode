@@ -27,6 +27,11 @@ public static class Main
 			Settings = Settings.Load<Settings>(modEntry);
 			harmony?.PatchAll(Assembly.GetExecutingAssembly());
 
+			if (Settings.vanillaSupportsHolding)
+			{
+				Settings.holdForMousemode = false;
+			}
+
 			// Other plugin startup logic
 			modEntry.OnToggle = OnToggle;
 			modEntry.OnGUI = OnGUI;

@@ -2,6 +2,11 @@
 	"Releases": [
 		{
 			"Id": "ImprovedMousemode",
+			"Version": "1.1.0",
+			"DownloadUrl": "https://github.com/heizpilz/dv-improved-mousemode/releases/download/v1.1.0/ImprovedMousemode_v1.1.0.zip"
+		},
+		{
+			"Id": "ImprovedMousemode",
 			"Version": "1.0.1",
 			"DownloadUrl": "https://github.com/heizpilz/dv-improved-mousemode/releases/download/v1.0.1/ImprovedMousemode_v1.0.1.zip"
 		},
