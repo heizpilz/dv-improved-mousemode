@@ -92,8 +92,8 @@ public static class Main
 		{
 			if (Settings.mouseCenteringEnabled && type == CanvasController.ElementType.MouseMode && on)
 			{
-				Win32MouseHandler.GetCursorPos(out Vector2Int centerMousePosition);
-				AccessTools.FieldRefAccess<CursorManager, Vector2Int>(CursorManager.Instance, "mousePosition") = centerMousePosition;
+				CursorManager.GetCursorPos(out Vector2? centerMousePosition);
+				AccessTools.FieldRefAccess<CursorManager, Vector2?>(CursorManager.Instance, "mousePosition") = centerMousePosition;
 			}
 		}
 	}

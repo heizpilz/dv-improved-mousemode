@@ -10,6 +10,7 @@
 	<!-- Derail Valley -->
 	<ItemGroup>
 		<Reference Include="Assembly-CSharp"/>
+		<Reference Include="DV.BuildInfo"/>
 		<Reference Include="DV.UI"/>
 		<Reference Include="DV.Interaction"/>
 		<Reference Include="DV.Utils"/>
