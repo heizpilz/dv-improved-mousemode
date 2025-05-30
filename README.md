@@ -49,7 +49,7 @@ This mod adds a config option to improve the mousemode experience. Those can be 
 ~~If you just use mousemode for the quick look at held items, this mode is for you.~~
 ~~Additionally you can still toggle on the driving-UI permanently via its keyboard shortcut (default `F4`).~~
 
-_This functionality is in vanilla from Build 98 onwards, this part of the mod deactives itself on those builds_
+_This functionality is in vanilla from Build 98 onwards_
 
 ### Centering Mouse when entering Mousemode
 

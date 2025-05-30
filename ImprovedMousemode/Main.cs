@@ -2,9 +2,7 @@
 using System.Reflection;
 using HarmonyLib;
 using UnityModManagerNet;
-using DV.Common;
 using DV.UI;
-using DV.Utils;
 using UnityEngine;
 
 
@@ -26,11 +24,6 @@ public static class Main
 			harmony = new Harmony(modEntry.Info.Id);
 			Settings = Settings.Load<Settings>(modEntry);
 			harmony?.PatchAll(Assembly.GetExecutingAssembly());
-
-			if (Settings.vanillaSupportsHolding)
-			{
-				Settings.holdForMousemode = false;
-			}
 
 			// Other plugin startup logic
 			modEntry.OnToggle = OnToggle;
@@ -70,19 +63,6 @@ public static class Main
 		Settings.Save(modEntry);
 	}
 
-	[HarmonyPatch(typeof(CanvasProviderDV), nameof(CanvasProviderDV.ShouldTryToggle))]
-	class AddKeyDownToMouseModeTrigger
-	{
-		public static bool Postfix(bool result, CanvasController.ElementType type)
-		{
-			bool inMousemode = SingletonBehaviour<ACanvasController<CanvasController.ElementType>>.Instance.IsOn(CanvasController.ElementType.MouseMode);
-			if (Settings.holdForMousemode && type == CanvasController.ElementType.MouseMode && !inMousemode && GameFeatureFlags.IsAllowed(GameFeatureFlags.Flag.MouseMode) && !VRManager.IsVREnabled())
-			{
-				return KeyBindings.mouseLookKeys.IsUp(false) || KeyBindings.mouseLookKeys.IsDown(false);
-			}
-			return result;
-		}
-	}
 
 	[HarmonyPatch(typeof(ACanvasController<CanvasController.ElementType>))]
 	class CenterMouseOnEnteringMousemode
